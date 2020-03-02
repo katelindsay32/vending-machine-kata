@@ -15,4 +15,8 @@ public class InventoryService {
         inventoryRepository.GetInventoryForSelection(selection);
         return null;
     }
+
+    public void Dispense(String selection) {
+
+    }
 }

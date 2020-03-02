@@ -12,6 +12,8 @@ public class VendingMachineControllerTest {
 
     private InventoryService inventoryService;
     private VendingMachineController controller;
+    private String selection;
+    private String product;
 
     @Before
     public void Setup() {
@@ -29,11 +31,26 @@ public class VendingMachineControllerTest {
 
     @Test
     public void shouldGetProductNameWhenPurchaseRequested(){
-        String selection = "A1";
-        String product = "SNICKERS";
+        selection = "A1";
+        product = "SNICKERS";
+
         when(inventoryService.GetInventoryForSelection(selection)).thenReturn(product);
         String result = controller.Purchase(selection);
 
         assertEquals(product, result);
     }
+
+    @Test
+    public void shouldDispenseProduct(){
+        String selection = "A1";
+        product = "SNICKERS";
+
+        when(inventoryService.GetInventoryForSelection(selection)).thenReturn(product);
+        String result = controller.Purchase(selection);
+
+        verify(inventoryService).Dispense(selection);
+
+
+    }
+
 }

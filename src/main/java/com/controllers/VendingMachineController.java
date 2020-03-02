@@ -11,6 +11,8 @@ public class VendingMachineController {
     }
 
     public String Purchase(String selection) {
-        return inventoryService.GetInventoryForSelection(selection);
+        String product = inventoryService.GetInventoryForSelection(selection);
+        inventoryService.Dispense(selection);
+        return product;
     }
 }
