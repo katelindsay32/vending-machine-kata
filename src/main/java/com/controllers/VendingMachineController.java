@@ -11,6 +11,7 @@ public class VendingMachineController {
     }
 
     public Inventory Purchase(String selection) {
+        inventoryService.GetInventoryForSelection(selection);
         return null;
     }
 }

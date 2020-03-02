@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verify;
 
 public class VendingMachineControllerTest {
 
-
     private InventoryService inventoryService;
     private VendingMachineController controller;
 
