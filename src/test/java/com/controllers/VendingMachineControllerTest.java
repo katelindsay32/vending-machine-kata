@@ -5,8 +5,8 @@ import com.services.InventoryService;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class VendingMachineControllerTest {
 
@@ -25,5 +25,15 @@ public class VendingMachineControllerTest {
         controller.Purchase(selection);
 
        verify(inventoryService).GetInventoryForSelection(selection);
+    }
+
+    @Test
+    public void shouldGetProductNameWhenPurchaseRequested(){
+        String selection = "A1";
+        String product = "SNICKERS";
+        when(inventoryService.GetInventoryForSelection(selection)).thenReturn(product);
+        String result = controller.Purchase(selection);
+
+        assertEquals(product, result);
     }
 }

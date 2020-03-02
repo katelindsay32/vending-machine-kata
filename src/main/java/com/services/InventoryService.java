@@ -11,7 +11,7 @@ public class InventoryService {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public Inventory GetInventoryForSelection(String selection) {
+    public String GetInventoryForSelection(String selection) {
         inventoryRepository.GetInventoryForSelection(selection);
         return null;
     }

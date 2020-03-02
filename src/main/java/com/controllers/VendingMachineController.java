@@ -10,8 +10,7 @@ public class VendingMachineController {
         this.inventoryService = inventoryService;
     }
 
-    public Inventory Purchase(String selection) {
-        inventoryService.GetInventoryForSelection(selection);
-        return null;
+    public String Purchase(String selection) {
+        return inventoryService.GetInventoryForSelection(selection);
     }
 }
