@@ -12,8 +12,12 @@ public class InventoryService {
     }
 
     public String GetInventoryForSelection(String selection) {
-        inventoryRepository.GetInventoryForSelection(selection);
-        return null;
+        Inventory inventory = inventoryRepository.GetInventoryForSelection(selection);
+
+        if(inventory.getInventoryAtSlot() == 0){
+            return "";
+        }
+        return inventory.getProduct();
     }
 
     public void Dispense(String selection) {

@@ -5,8 +5,8 @@ import com.repository.InventoryRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class InventoryServiceTest {
 
@@ -22,8 +22,18 @@ public class InventoryServiceTest {
     @Test
     public void shouldGetInventoryFromRepo(){
         String selection = "A1";
+        when(inventoryRepository.GetInventoryForSelection(selection)).thenReturn(new Inventory("SNICKERS", 2));
+
         inventoryService.GetInventoryForSelection(selection);
 
         verify(inventoryRepository).GetInventoryForSelection(selection);
+    }
+
+    @Test
+    public void shouldReturnEmptyIfItemIsNotInStock(){
+        String selection = "A1";
+        when(inventoryRepository.GetInventoryForSelection(selection)).thenReturn(new Inventory("SNICKERS", 0));
+        String result = inventoryService.GetInventoryForSelection(selection);
+        assertTrue(result.isEmpty());
     }
 }
