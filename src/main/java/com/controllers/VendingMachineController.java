@@ -15,10 +15,12 @@ public class VendingMachineController {
         this.coinService = coinService;
     }
 
-    public String Purchase(String selection, ArrayList<Coin> coins) {
-        String product = inventoryService.GetInventoryForSelection(selection);
+    public void Purchase(String selection, ArrayList<Coin> coins) {
+        boolean canVendSelection = inventoryService.canVendSelection(selection);
+
         coinService.ValidateCoins(coins);
-        inventoryService.Dispense(selection);
-        return product;
+        if (canVendSelection) {
+            inventoryService.Dispense(selection);
+        }
     }
 }

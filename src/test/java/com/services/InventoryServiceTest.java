@@ -24,16 +24,16 @@ public class InventoryServiceTest {
         String selection = "A1";
         when(inventoryRepository.GetInventoryForSelection(selection)).thenReturn(new Inventory("SNICKERS", 2));
 
-        inventoryService.GetInventoryForSelection(selection);
+        inventoryService.canVendSelection(selection);
 
         verify(inventoryRepository).GetInventoryForSelection(selection);
     }
 
     @Test
-    public void shouldReturnEmptyIfItemIsNotInStock(){
+    public void shouldReturnFalseIfItemIsNotInStock(){
         String selection = "A1";
         when(inventoryRepository.GetInventoryForSelection(selection)).thenReturn(new Inventory("SNICKERS", 0));
-        String result = inventoryService.GetInventoryForSelection(selection);
-        assertTrue(result.isEmpty());
+        boolean result = inventoryService.canVendSelection(selection);
+        assertFalse(result);
     }
 }

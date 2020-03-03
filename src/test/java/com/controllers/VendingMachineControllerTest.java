@@ -33,38 +33,38 @@ public class VendingMachineControllerTest {
         String selection = "A1";
         controller.Purchase(selection, emptyListCoins);
 
-       verify(inventoryService).GetInventoryForSelection(selection);
+        verify(inventoryService).canVendSelection(selection);
     }
 
     @Test
-    public void shouldGetProductNameWhenPurchaseRequested(){
+    public void shouldDispenseProductWhenAvailable() {
         selection = "A1";
-        product = "SNICKERS";
 
-        when(inventoryService.GetInventoryForSelection(selection)).thenReturn(product);
-        String result = controller.Purchase(selection, emptyListCoins);
+        when(inventoryService.canVendSelection(selection)).thenReturn(true);
 
-        assertEquals(product, result);
-    }
-
-    @Test
-    public void shouldDispenseProduct(){
-        selection = "A1";
-        product = "SNICKERS";
-
-        when(inventoryService.GetInventoryForSelection(selection)).thenReturn(product);
-
-        String result = controller.Purchase(selection, emptyListCoins);
+        controller.Purchase(selection, emptyListCoins);
 
         verify(inventoryService).Dispense(selection);
     }
 
     @Test
-    public void shouldValidateCoins(){
+    public void shouldNotDispenseProductWhenNotAvailable() {
+        selection = "A1";
+
+        when(inventoryService.canVendSelection(selection)).thenReturn(false);
+
+        controller.Purchase(selection, emptyListCoins);
+
+        verify(inventoryService, never()).Dispense(selection);
+    }
+
+
+    @Test
+    public void shouldValidateCoins() {
         selection = "A1";
 
         ArrayList<Coin> coins = new ArrayList<Coin>();
-        String result = controller.Purchase(selection, coins);
+        controller.Purchase(selection, coins);
 
         verify(coinService).ValidateCoins(coins);
     }

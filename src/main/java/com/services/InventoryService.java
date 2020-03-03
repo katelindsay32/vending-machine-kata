@@ -11,13 +11,10 @@ public class InventoryService {
         this.inventoryRepository = inventoryRepository;
     }
 
-    public String GetInventoryForSelection(String selection) {
+    public boolean canVendSelection(String selection) {
         Inventory inventory = inventoryRepository.GetInventoryForSelection(selection);
 
-        if(inventory.getInventoryAtSlot() == 0){
-            return "";
-        }
-        return inventory.getProduct();
+        return inventory.getInventoryAtSlot() > 0;
     }
 
     public void Dispense(String selection) {
